@@ -1,0 +1,86 @@
+<section class="dashboard centered">
+  <h2>Your Profile</h2>
+  <p class="subtitle">View and update your account details.</p>
+
+  {{#if error}}
+    <div class="alert alert-error">
+      {{error}}
+    </div>
+  {{/if}}
+
+  {{#if success}}
+    <div class="alert" style="background: rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.5); color:#bbf7d0;">
+      {{success}}
+    </div>
+  {{/if}}
+
+  <div class="toolbar-row" style="max-width: 480px; margin: 0 auto 0.75rem;">
+    <a href="/tasks" class="btn-primary">Back to dashboard</a>
+  </div>
+
+  <section class="card" style="max-width: 480px; margin: 0 auto;">
+    <form method="POST" action="/auth/profile" class="task-form">
+      <div class="form-row">
+        <label for="username">Username<span class="required">*</span></label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value="{{form.username}}"
+          required
+        />
+      </div>
+
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          value="{{form.email}}"
+          disabled
+        />
+        <small class="help-text">Email is currently fixed. Contact admin to change it.</small>
+      </div>
+
+      <hr style="border-color: rgba(148,163,184,0.3); margin: 1rem 0;" />
+
+      <p class="small-muted" style="margin-bottom: 0.6rem; font-size: 0.8rem;">
+        To update your password, fill in the fields below. Leave them blank to keep your current password.
+      </p>
+
+      <div class="form-row">
+        <label for="current_password">Current Password</label>
+        <input
+          type="password"
+          id="current_password"
+          name="current_password"
+        />
+      </div>
+
+      <div class="form-row">
+        <label for="new_password">New Password</label>
+        <input
+          type="password"
+          id="new_password"
+          name="new_password"
+        />
+      </div>
+
+      <div class="form-row">
+        <label for="confirm_new_password">Confirm New Password</label>
+        <input
+          type="password"
+          id="confirm_new_password"
+          name="confirm_new_password"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </section>
+</section>
+
+

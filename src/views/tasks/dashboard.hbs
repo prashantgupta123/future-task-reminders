@@ -1,0 +1,108 @@
+<section class="dashboard">
+  <div class="dashboard-header">
+    <h2>Tasks Overview</h2>
+    <p class="subtitle">View all reminders and create new ones.</p>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card stat-total">
+      <span class="stat-label">Total Tasks</span>
+      <span class="stat-value">{{summary.total}}</span>
+    </div>
+    <div class="stat-card stat-high">
+      <span class="stat-label">High Priority</span>
+      <span class="stat-value">{{summary.high}}</span>
+    </div>
+    <div class="stat-card stat-medium">
+      <span class="stat-label">Medium Priority</span>
+      <span class="stat-value">{{summary.medium}}</span>
+    </div>
+    <div class="stat-card stat-low">
+      <span class="stat-label">Low Priority</span>
+      <span class="stat-value">{{summary.low}}</span>
+    </div>
+  </div>
+
+  {{#if error}}
+    <div class="alert alert-error">
+      {{error}}
+    </div>
+  {{/if}}
+
+  <div class="layout-grid">
+    <section class="card">
+      <h3>Create New Task Reminder</h3>
+      <form method="POST" action="/tasks" class="task-form">
+        <div class="form-row">
+          <label for="name">Task Name<span class="required">*</span></label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-row">
+          <label for="description">Task Description</label>
+          <textarea id="description" name="description" rows="3"></textarea>
+        </div>
+
+        <div class="form-row-inline">
+          <div class="form-row">
+            <label for="priority">Priority<span class="required">*</span></label>
+            <select id="priority" name="priority" required>
+              <option value="high">High</option>
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="trigger_at">Trigger Date &amp; Time<span class="required">*</span></label>
+            <input
+              type="datetime-local"
+              id="trigger_at"
+              name="trigger_at"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="task_type">Task Type</label>
+          <select id="task_type" name="task_type">
+            <option value="public" selected>Public</option>
+            <option value="private">Private</option>
+          </select>
+          <small class="help-text">
+            Public tasks are visible to all users. Private tasks are only visible to you.
+          </small>
+        </div>
+
+        <div class="form-row">
+          <label for="email_recipients">Email Recipients<span class="required">*</span></label>
+          <input
+            type="text"
+            id="email_recipients"
+            name="email_recipients"
+            placeholder="user1@example.com, user2@example.com"
+            required
+          />
+          <small class="help-text">Separate multiple email addresses with commas.</small>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Save Reminder</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h3>All Task Reminders</h3>
+      <p class="empty-state">
+        View and manage all tasks in a dedicated list.
+      </p>
+      <div class="form-actions">
+        <a href="/tasks/list" class="btn-primary">View all tasks</a>
+      </div>
+    </section>
+  </div>
+</section>
+
+

@@ -1,0 +1,67 @@
+<section class="dashboard centered">
+  <h2>Create your account</h2>
+  <p class="subtitle">Register to start scheduling email reminders.</p>
+
+  {{#if error}}
+    <div class="alert alert-error">
+      {{error}}
+    </div>
+  {{/if}}
+
+  <section class="card" style="max-width: 440px; margin: 0 auto;">
+    <form method="POST" action="/auth/register" class="task-form">
+      <div class="form-row">
+        <label for="username">Username<span class="required">*</span></label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value="{{form.username}}"
+          required
+        />
+      </div>
+
+      <div class="form-row">
+        <label for="email">Email<span class="required">*</span></label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          value="{{form.email}}"
+          required
+        />
+      </div>
+
+      <div class="form-row">
+        <label for="password">Password<span class="required">*</span></label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+        />
+      </div>
+
+      <div class="form-row">
+        <label for="confirm_password">Confirm Password<span class="required">*</span></label>
+        <input
+          type="password"
+          id="confirm_password"
+          name="confirm_password"
+          required
+        />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Register</button>
+      </div>
+    </form>
+
+    <p class="small-muted" style="margin-top: 0.75rem; font-size: 0.8rem;">
+      Already have an account?
+      <a href="/auth/login" class="btn-link">Login</a>
+    </p>
+  </section>
+</section>
+
+

@@ -1,0 +1,106 @@
+<section class="dashboard">
+  <div class="dashboard-header">
+    <h2>Edit Task</h2>
+    <p class="subtitle">Update the reminder details or change the status back to pending.</p>
+  </div>
+
+  {{#if error}}
+    <div class="alert alert-error">
+      {{error}}
+    </div>
+  {{/if}}
+
+  <section class="card">
+    <h3>Task #{{task.id}}</h3>
+    <form method="POST" action="/tasks/{{task.id}}/edit" class="task-form">
+      <input type="hidden" name="from" value="{{from}}" />
+      <div class="form-row">
+        <label for="name">Task Name<span class="required">*</span></label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value="{{task.name}}"
+          required
+        />
+      </div>
+
+      <div class="form-row">
+        <label for="description">Task Description</label>
+        <textarea id="description" name="description" rows="3">{{task.description}}</textarea>
+      </div>
+
+      <div class="form-row-inline">
+        <div class="form-row">
+          <label for="priority">Priority<span class="required">*</span></label>
+          <select id="priority" name="priority" required>
+            <option value="high" {{#if (eq task.priority 'high')}}selected{{/if}}>High</option>
+            <option value="medium" {{#if (eq task.priority 'medium')}}selected{{/if}}>Medium</option>
+            <option value="low" {{#if (eq task.priority 'low')}}selected{{/if}}>Low</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="trigger_at">Trigger Date &amp; Time<span class="required">*</span></label>
+          <input
+            type="datetime-local"
+            id="trigger_at"
+            name="trigger_at"
+            value="{{triggerAtInput}}"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="task_type">Task Type</label>
+        <select id="task_type" name="task_type">
+          <option value="public" {{#if (eq task.task_type 'public')}}selected{{/if}}>Public</option>
+          <option value="private" {{#if (eq task.task_type 'private')}}selected{{/if}}>Private</option>
+        </select>
+        <small class="help-text">
+          Public tasks are visible to all users. Private tasks are only visible to you.
+        </small>
+      </div>
+
+      <div class="form-row">
+        <label for="email_recipients">Email Recipients<span class="required">*</span></label>
+        <input
+          type="text"
+          id="email_recipients"
+          name="email_recipients"
+          value="{{task.email_recipients}}"
+          required
+        />
+        <small class="help-text">Separate multiple email addresses with commas.</small>
+      </div>
+
+      <div class="form-row">
+        <label for="status">Status</label>
+        <select id="status" name="status">
+          <option value="pending" {{#unless task.is_reminded}}selected{{/unless}}>
+            Pending (email not sent)
+          </option>
+          <option value="sent" {{#if task.is_reminded}}selected{{/if}}>
+            Sent (email already sent)
+          </option>
+        </select>
+        <small class="help-text">
+          Set to <strong>Pending</strong> to allow the reminder to be sent again.
+        </small>
+      </div>
+
+      <div class="form-actions">
+        <a
+          href="{{#if (eq from 'list')}}/tasks/list{{else}}/tasks{{/if}}"
+          class="btn-link"
+        >
+          Cancel
+        </a>
+        <button type="submit" class="btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </section>
+</section>
+
+

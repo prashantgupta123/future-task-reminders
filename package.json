@@ -1,0 +1,33 @@
+{
+  "name": "future-task-reminders",
+  "version": "1.0.0",
+  "description": "Task reminder dashboard with email notifications using Node.js, Express, MySQL, and SMTP.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "express",
+    "mysql",
+    "task-reminder",
+    "nodemailer"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-handlebars": "^7.0.7",
+    "express-session": "^1.17.3",
+    "mysql2": "^3.11.3",
+    "nodemailer": "^6.9.15",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
+
+

@@ -1,0 +1,127 @@
+<section class="dashboard">
+  <div class="dashboard-header">
+    <h2>All Task Reminders</h2>
+    <p class="subtitle">
+      Full list of all reminders in the system, shown one per row.
+    </p>
+  </div>
+
+  <div class="toolbar-row">
+    <a href="/tasks" class="btn-primary">Back to dashboard</a>
+  </div>
+
+  <section class="card">
+    <div class="list-header">
+      <div>
+        <h3>Tasks ({{summary.total}})</h3>
+        <p class="small-muted">
+          High: {{summary.high}} &nbsp;|&nbsp;
+          Medium: {{summary.medium}} &nbsp;|&nbsp;
+          Low: {{summary.low}}
+        </p>
+      </div>
+    </div>
+
+    {{#if tasks.length}}
+      <div class="table-wrapper full-height">
+        <table class="tasks-table">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Priority</th>
+              <th>Type</th>
+              <th>Trigger At</th>
+              <th>Created At</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each tasks}}
+              <tr>
+                <td class="col-task">
+                  <div class="task-name">{{this.name}}</div>
+                </td>
+                <td>
+                  <span
+                    class="badge
+                      {{#if (eq this.priority 'high')}}badge-high{{/if}}
+                      {{#if (eq this.priority 'medium')}}badge-medium{{/if}}
+                      {{#if (eq this.priority 'low')}}badge-low{{/if}}
+                    "
+                  >
+                    {{this.priority_label}}
+                  </span>
+                </td>
+                <td>
+                  <span
+                    class="badge-type
+                      {{#if (eq this.task_type_code 'private')}}badge-type-private{{/if}}
+                      {{#if (eq this.task_type_code 'public')}}badge-type-public{{/if}}
+                    "
+                  >
+                    {{this.task_type_label}}
+                  </span>
+                </td>
+                <td>{{this.trigger_at_display}}</td>
+                <td>{{this.created_at_display}}</td>
+                <td>
+                  {{#if this.is_reminded}}
+                    <span class="badge badge-muted">Sent</span>
+                  {{else}}
+                    <span class="badge badge-pending">Pending</span>
+                  {{/if}}
+                </td>
+                <td>
+                  <div class="actions-cell">
+                    <button
+                      type="button"
+                      class="btn-link"
+                      data-task-view="true"
+                      data-name="{{this.name}}"
+                      data-priority-label="{{this.priority_label}}"
+                      data-priority-code="{{this.priority}}"
+                      data-status="{{#if this.is_reminded}}Sent{{else}}Pending{{/if}}"
+                      data-task-type-code="{{this.task_type_code}}"
+                      data-task-type-label="{{this.task_type_label}}"
+                      data-trigger-at="{{this.trigger_at_display}}"
+                      data-created-at="{{this.created_at_display}}"
+                      data-updated-at="{{this.updated_at_display}}"
+                      data-created-by="{{this.created_by}}"
+                      data-updated-by="{{this.updated_by}}"
+                      data-description="{{this.description}}"
+                      data-emails="{{this.email_recipients}}"
+                    >
+                      View
+                    </button>
+                    <a href="/tasks/{{this.id}}/edit?from=list" class="btn-link">Edit</a>
+                    <a
+                      href="/tasks/{{this.id}}/duplicate?from=list"
+                      class="btn-link"
+                    >
+                      Duplicate
+                    </a>
+                    <form
+                      method="POST"
+                      action="/tasks/{{this.id}}/delete?from=list"
+                      class="inline-form"
+                      onsubmit="return confirm('Delete this task?');"
+                    >
+                      <button type="submit" class="btn-link btn-link-danger">
+                        Delete
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    {{else}}
+      <p class="empty-state">No tasks yet.</p>
+    {{/if}}
+  </section>
+</section>
+
+

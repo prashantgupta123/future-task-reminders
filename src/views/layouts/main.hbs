@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="container">
+        <div class="header-inner">
+          <h1>Future Task Reminders</h1>
+          <nav class="header-nav">
+            {{#if currentUserId}}
+              <span class="header-user">
+                Signed in as <strong>{{currentUserName}}</strong>
+              </span>
+              <a href="/auth/profile" class="btn-link">Profile</a>
+              <form method="POST" action="/auth/logout" class="inline-form">
+                <button type="submit" class="btn-link">Logout</button>
+              </form>
+            {{else}}
+              <a href="/auth/login" class="btn-link">Login</a>
+              <a href="/auth/register" class="btn-link">Register</a>
+            {{/if}}
+          </nav>
+        </div>
+      </div>
+    </header>
+    <main class="container">
+      {{{body}}}
+    </main>
+    <footer class="app-footer">
+      <div class="container">
+        <small>Task reminder dashboard powered by Node.js, Express &amp; MySQL</small>
+      </div>
+    </footer>
+    <div id="task-modal" class="modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-card">
+        <button type="button" class="modal-close" aria-label="Close">&times;</button>
+        <h3 class="modal-title" data-field="name"></h3>
+        <p class="modal-subtitle">
+          <span data-field="priority" class="badge"></span>
+          <span data-field="status" class="status-chip"></span>
+          <span data-field="task-type" class="status-chip"></span>
+        </p>
+        <div class="modal-grid">
+          <div class="modal-section">
+            <h4>Trigger Date &amp; Time</h4>
+            <p data-field="trigger_at"></p>
+          </div>
+        </div>
+        <div class="modal-section">
+          <h4>Description</h4>
+          <p data-field="description"></p>
+        </div>
+        <div class="modal-section">
+          <h4>Email Recipients</h4>
+          <p data-field="emails"></p>
+        </div>
+        <div class="modal-section">
+          <h4>Status</h4>
+          <p data-field="status-help"></p>
+        </div>
+        <div class="modal-section">
+          <h4>Audit</h4>
+          <div class="audit-grid">
+            <div class="audit-row">
+              <span class="audit-label">Created At</span>
+              <span class="audit-value" data-field="audit-created-at"></span>
+            </div>
+            <div class="audit-row">
+              <span class="audit-label">Created By</span>
+              <span class="audit-value" data-field="audit-created-by"></span>
+            </div>
+            <div class="audit-row">
+              <span class="audit-label">Updated At</span>
+              <span class="audit-value" data-field="audit-updated-at"></span>
+            </div>
+            <div class="audit-row">
+              <span class="audit-label">Updated By</span>
+              <span class="audit-value" data-field="audit-updated-by"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/tasks.js"></script>
+  </body>
+</html>
+
+
