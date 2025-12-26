@@ -32,6 +32,7 @@
               <th>Type</th>
               <th>Trigger At</th>
               <th>Created At</th>
+              <th>Execution Protection</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -65,6 +66,18 @@
                 </td>
                 <td>{{this.trigger_at_display}}</td>
                 <td>{{this.created_at_display}}</td>
+                <td>
+                  <span
+                    class="badge
+                      {{#if (eq this.execution_protection_code 'daily')}}badge-high{{/if}}
+                      {{#if (eq this.execution_protection_code 'weekly')}}badge-medium{{/if}}
+                      {{#if (eq this.execution_protection_code 'monthly')}}badge-low{{/if}}
+                      {{#if (eq this.execution_protection_code 'none')}}badge-muted{{/if}}
+                    "
+                  >
+                    {{this.execution_protection_label}}
+                  </span>
+                </td>
                 <td>
                   {{#if this.is_reminded}}
                     <span class="badge badge-muted">Sent</span>

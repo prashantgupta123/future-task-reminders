@@ -64,6 +64,22 @@
       </div>
 
       <div class="form-row">
+        <label for="execution_protection">Execution Protection</label>
+        <select id="execution_protection" name="execution_protection">
+          <option value="none" {{#if (eq task.execution_protection 'none')}}selected{{/if}}>None (send once)</option>
+          <option value="daily" {{#if (eq task.execution_protection 'daily')}}selected{{/if}}>Daily (send daily after trigger time)</option>
+          <option value="weekly" {{#if (eq task.execution_protection 'weekly')}}selected{{/if}}>Weekly (send weekly after trigger time)</option>
+          <option value="monthly" {{#if (eq task.execution_protection 'monthly')}}selected{{/if}}>Monthly (send monthly after trigger time)</option>
+        </select>
+        <small class="help-text">
+          <strong>None:</strong> Reminder will be sent once when trigger time is reached.<br>
+          <strong>Daily:</strong> Reminder will be sent daily after trigger time until manually stopped.<br>
+          <strong>Weekly:</strong> Reminder will be sent weekly after trigger time until manually stopped.<br>
+          <strong>Monthly:</strong> Reminder will be sent monthly after trigger time until manually stopped.
+        </small>
+      </div>
+
+      <div class="form-row">
         <label for="email_recipients">Email Recipients<span class="required">*</span></label>
         <input
           type="text"

@@ -144,7 +144,9 @@ router.get('/tasks/list', async (req, res, next) => {
         : '',
       priority_label: capitalizeFirst(t.priority),
       task_type_label: capitalizeFirst(t.task_type || 'public'),
-      task_type_code: (t.task_type || 'public').toLowerCase()
+      task_type_code: (t.task_type || 'public').toLowerCase(),
+      execution_protection_label: capitalizeFirst(t.execution_protection || 'none'),
+      execution_protection_code: (t.execution_protection || 'none').toLowerCase()
     }));
 
     const summary = {
@@ -172,7 +174,8 @@ router.post('/tasks', async (req, res, next) => {
       priority,
       trigger_at,
       email_recipients,
-      task_type
+      task_type,
+      execution_protection
     } = req.body;
 
     if (!name || !priority || !trigger_at || !email_recipients) {
@@ -210,6 +213,7 @@ router.post('/tasks', async (req, res, next) => {
       task_type,
       trigger_at: triggerAt,
       email_recipients: recipients,
+      execution_protection: execution_protection || 'none',
       created_by: res.locals.currentUserEmail || null
     });
 
@@ -282,6 +286,7 @@ router.post('/tasks/:id/edit', async (req, res, next) => {
       trigger_at,
       email_recipients,
       status,
+      execution_protection,
       from
     } = req.body;
 
@@ -328,6 +333,7 @@ router.post('/tasks/:id/edit', async (req, res, next) => {
       trigger_at: triggerAt,
       email_recipients: recipients,
       is_reminded: isReminded,
+      execution_protection: execution_protection || existing.execution_protection || 'none',
       updated_by: res.locals.currentUserEmail || null
     });
 
@@ -352,6 +358,7 @@ router.post('/tasks/:id/duplicate', async (req, res, next) => {
       priority,
       trigger_at,
       email_recipients,
+      execution_protection,
       from
     } = req.body;
 
@@ -395,6 +402,7 @@ router.post('/tasks/:id/duplicate', async (req, res, next) => {
       task_type: existing.task_type || 'public',
       trigger_at: triggerAt,
       email_recipients: recipients,
+      execution_protection: execution_protection || existing.execution_protection || 'none',
       created_by: res.locals.currentUserEmail || null
     });
 

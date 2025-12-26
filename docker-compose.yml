@@ -39,6 +39,7 @@ services:
       SMTP_PASS: your_smtp_password
       SMTP_FROM: "Task Reminders <no-reply@example.com>"
       REMINDER_CRON: "*/1 * * * *"
+      DAILY_CRON: "0 9 * * *"
       SESSION_SECRET: "change_me_for_production"
 
 volumes:
